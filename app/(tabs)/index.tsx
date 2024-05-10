@@ -1,13 +1,15 @@
-import { Link } from "expo-router";
+import ExploreHeader from "@/components/ExploreHeader";
+import Listings from "@/components/Listings";
+import { defaultStyles } from "@/constants/Styles";
+import { Stack } from "expo-router";
 import React from "react";
 import { View } from "react-native";
 
 const HomePage = () => {
   return (
-    <View>
-      <Link href={"/(modals)/login"}>Login</Link>
-      <Link href={"/(modals)/booking"}>Booking</Link>
-      <Link href={"/listing/32"}>Listing</Link>
+    <View style={defaultStyles.container}>
+      <Stack.Screen options={{ header: () => <ExploreHeader /> }} />
+      <Listings />
     </View>
   );
 };
