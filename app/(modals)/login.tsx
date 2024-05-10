@@ -1,7 +1,15 @@
-import { View, Text, StyleSheet, TextInput } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+} from "react-native";
 import React from "react";
 import { useWarmUpBrowser } from "@/hooks/useWarmUpBrowser";
 import { defaultStyles } from "@/constants/Styles";
+import Colors from "@/constants/Colors";
+import { Ionicons } from "@expo/vector-icons";
 
 const Login = () => {
   // for Android to allow quick browser load up
@@ -11,8 +19,58 @@ const Login = () => {
       <TextInput
         autoCapitalize="none"
         placeholder="Email"
-        style={defaultStyles.inputField}
+        style={[defaultStyles.inputField, { marginBottom: 20 }]}
       />
+      <TouchableOpacity style={defaultStyles.btn}>
+        <Text style={defaultStyles.btnText}>Continue</Text>
+      </TouchableOpacity>
+      <View style={styles.separatorView}>
+        <View
+          style={{
+            flex: 1,
+            borderBottomColor: Colors.dark,
+            borderBottomWidth: StyleSheet.hairlineWidth,
+          }}
+        />
+        <Text style={styles.separator}>or</Text>
+        <View
+          style={{
+            flex: 1,
+            borderBottomColor: Colors.dark,
+            borderBottomWidth: StyleSheet.hairlineWidth,
+          }}
+        />
+      </View>
+      <View style={{ gap: 20 }}>
+        <TouchableOpacity style={styles.outlineBtn}>
+          <Ionicons
+            name="call-outline"
+            style={defaultStyles.btnIcon}
+            size={24}
+          />
+          <Text style={styles.outlineBtnText}>Continue with Phone</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.outlineBtn}>
+          <Ionicons
+            name="logo-google"
+            style={defaultStyles.btnIcon}
+            size={24}
+          />
+          <Text style={styles.outlineBtnText}>Continue with Google</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.outlineBtn}>
+          <Ionicons name="logo-apple" style={defaultStyles.btnIcon} size={24} />
+          <Text style={styles.outlineBtnText}>Continue with Apple</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.outlineBtn}>
+          <Ionicons
+            name="logo-facebook"
+            style={defaultStyles.btnIcon}
+            size={24}
+          />
+          <Text style={styles.outlineBtnText}>Continue with Facebook</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -22,6 +80,32 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#ffffff",
     padding: 26,
+  },
+  separatorView: {
+    flexDirection: "row",
+    marginVertical: 30,
+    gap: 10,
+    alignItems: "center",
+  },
+  separator: {
+    fontFamily: "mon-s",
+    color: Colors.grey,
+  },
+  outlineBtn: {
+    backgroundColor: Colors.white,
+    borderWidth: 1,
+    borderColor: Colors.grey,
+    height: 50,
+    borderRadius: 8,
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
+    paddingHorizontal: 10,
+  },
+  outlineBtnText: {
+    color: Colors.dark,
+    fontSize: 16,
+    fontFamily: "mon-s",
   },
 });
 
