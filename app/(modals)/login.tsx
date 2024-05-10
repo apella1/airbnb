@@ -1,12 +1,28 @@
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet, TextInput } from "react-native";
 import React from "react";
+import { useWarmUpBrowser } from "@/hooks/useWarmUpBrowser";
+import { defaultStyles } from "@/constants/Styles";
 
-const login = () => {
+const Login = () => {
+  // for Android to allow quick browser load up
+  useWarmUpBrowser();
   return (
-    <View>
-      <Text>login</Text>
+    <View style={styles.container}>
+      <TextInput
+        autoCapitalize="none"
+        placeholder="Email"
+        style={defaultStyles.inputField}
+      />
     </View>
   );
 };
 
-export default login;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#ffffff",
+    padding: 26,
+  },
+});
+
+export default Login;

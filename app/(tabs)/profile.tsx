@@ -1,12 +1,14 @@
-import { View, Text } from "react-native";
+import { View, Text, Button } from "react-native";
 import React from "react";
 
-const profile = () => {
+const Profile = () => {
+  // const { signOut, isSignedIn } = useAuth();
   return (
     <View>
-      <Text>profile</Text>
+      <Button title="Log Out" />
+      {/* {!isSignedIn && <Link href={"/(modals)/login"}>Log In</Link>} */}
     </View>
   );
 };
 
-export default profile;
+export default Profile;
