@@ -10,6 +10,7 @@ import {
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import * as Haptics from "expo-haptics";
 
 interface Category {
   name: string;
@@ -26,7 +27,11 @@ const categories: Category[] = [
   { name: "Countryside", icon: "nature-people" },
 ];
 
-const ExploreHeader = () => {
+interface ExploreHeaderProps {
+  onCategoryChange: (category: string) => void;
+}
+
+const ExploreHeader = ({ onCategoryChange }: ExploreHeaderProps) => {
   const scrollRef = useRef<ScrollView>(null);
   const itemsRef = useRef<Array<TouchableOpacity | null>>([]);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -37,6 +42,8 @@ const ExploreHeader = () => {
       // x - 16 retains the padding
       scrollRef.current?.scrollTo({ x: x - 16, y: 0, animated: true });
     });
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    onCategoryChange(categories[index].name);
   };
 
   return (
