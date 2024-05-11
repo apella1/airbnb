@@ -6,9 +6,12 @@ import {
   Image,
   ListRenderItem,
   StyleSheet,
+  Text,
   TouchableOpacity,
   View,
 } from "react-native";
+import { AirbnbListing } from "@/types/listing";
+import { Ionicons } from "@expo/vector-icons";
 
 interface ListingProps {
   listings: any[];
@@ -17,7 +20,7 @@ interface ListingProps {
 
 const Listings = ({ listings, category }: ListingProps) => {
   const [loading, setLoading] = useState(false);
-  const listRef = useRef<FlatList>(null);
+  const listRef = useRef<FlatList | null>(null);
 
   useEffect(() => {
     setLoading(true);
@@ -27,11 +30,38 @@ const Listings = ({ listings, category }: ListingProps) => {
     }, 200);
   }, [category]);
 
-  const renderRow: ListRenderItem<any> = ({ item }) => (
-    <Link href={`/listing/${item.id}`}>
-      <TouchableOpacity>
+  const renderRow: ListRenderItem<AirbnbListing> = ({ item }) => (
+    <Link href={`/listing/${item.id}`} asChild>
+      <TouchableOpacity style={{ gap: 5 }}>
         <View style={styles.listing}>
-          <Image source={{ uri: item.medium_url }} />
+          <Image source={{ uri: item.medium_url }} style={styles.image} />
+          <TouchableOpacity
+            style={{ position: "absolute", right: 30, top: 20 }}
+          >
+            <Ionicons name="heart-outline" size={24} color={"#1a1a1a"} />
+          </TouchableOpacity>
+        </View>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            paddingHorizontal: 16,
+          }}
+        >
+          <Text style={{ fontFamily: "mon-s", fontSize: 16 }}>{item.name}</Text>
+          <View style={{ flexDirection: "row", gap: 4 }}>
+            <Ionicons name="star" size={14} />
+            <Text style={{ fontFamily: "mon-s" }}>
+              {item.review_scores_rating / 20}
+            </Text>
+          </View>
+        </View>
+        <Text style={{ fontFamily: "mon", paddingHorizontal: 16 }}>
+          {item.room_type}
+        </Text>
+        <View style={{ flexDirection: "row", gap: 4, paddingHorizontal: 16 }}>
+          <Text style={{ fontFamily: "mon-s" }}>{item.price}</Text>
+          <Text style={{ fontFamily: "mon-s" }}>night</Text>
         </View>
       </TouchableOpacity>
     </Link>
@@ -51,6 +81,13 @@ const Listings = ({ listings, category }: ListingProps) => {
 const styles = StyleSheet.create({
   listing: {
     padding: 16,
+    gap: 10,
+    marginVertical: 16,
+  },
+  image: {
+    width: "100%",
+    height: 300,
+    borderRadius: 10,
   },
 });
 
