@@ -123,6 +123,7 @@ function RootLayoutNav() {
           headerTitleStyle: {
             fontFamily: "mon-s",
           },
+          headerTransparent: true,
         }}
       />
     </Stack>
