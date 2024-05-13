@@ -7,7 +7,7 @@ import { useRouter } from "expo-router";
 import MapView from "react-native-map-clustering";
 
 interface ListingsMapProps {
-  listings: GeoListing[];
+  listings: any;
 }
 
 const INITIAL_REGION = {
@@ -23,6 +23,34 @@ const ListingsMap = ({ listings }: ListingsMapProps) => {
     router.push(`/listing/${item.properties.id}`);
   };
 
+  const renderCluster = (cluster: any) => {
+    const { id, geometry, onPress, properties } = cluster;
+    const points = properties.point_count;
+
+    return (
+      <Marker
+        onPress={onPress}
+        key={`cluster-${id}`}
+        coordinate={{
+          latitude: geometry.coordinates[0],
+          longitude: geometry.coordinates[1],
+        }}
+      >
+        <View style={styles.marker}>
+          <Text
+            style={{
+              color: Colors.dark,
+              textAlign: "center",
+              fontFamily: "mon-s",
+            }}
+          >
+            {points}
+          </Text>
+        </View>
+      </Marker>
+    );
+  };
+
   return (
     <View style={styles.container}>
       <MapView
@@ -31,12 +59,13 @@ const ListingsMap = ({ listings }: ListingsMapProps) => {
         showsUserLocation
         showsMyLocationButton
         provider={PROVIDER_GOOGLE}
-        initialRegion={INITIAL_REGION}
+        // initialRegion={INITIAL_REGION}
         clusterFontFamily={"mon-s"}
         clusterColor={Colors.white}
         clusterTextColor={Colors.dark}
+        renderCluster={renderCluster}
       >
-        {[...listings].map((item: GeoListing) => (
+        {listings.features.map((item: GeoListing) => (
           <Marker
             key={item.properties.id}
             onPress={() => onMarkerSelected(item)}
