@@ -17,7 +17,7 @@ const ListingsBottomSheet = ({ listings, category }: LBSProps) => {
   const [refresh, setRefresh] = useState(0);
 
   const showMap = () => {
-    bottomSheetRef.current?.collapse;
+    bottomSheetRef.current?.collapse();
     setRefresh(refresh + 1);
   };
 
