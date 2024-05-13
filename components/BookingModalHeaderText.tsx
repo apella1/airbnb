@@ -2,17 +2,28 @@ import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import React, { useState } from "react";
 import Colors from "@/constants/Colors";
 
+enum Sections {
+  Stays = "stays",
+  Experiences = "experiences",
+}
+
 const BookingModalHeaderText = () => {
-  const [active, setActive] = useState(0);
+  const [active, setActive] = useState<Sections>(Sections.Stays);
   return (
     <View style={{ flexDirection: "row", justifyContent: "center", gap: 6 }}>
-      <TouchableOpacity onPress={() => setActive(0)}>
-        <Text style={active === 0 ? styles.activeText : styles.text}>
+      <TouchableOpacity onPress={() => setActive(Sections.Stays)}>
+        <Text
+          style={active === Sections.Stays ? styles.activeText : styles.text}
+        >
           Stays
         </Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => setActive(1)}>
-        <Text style={active === 1 ? styles.activeText : styles.text}>
+      <TouchableOpacity onPress={() => setActive(Sections.Experiences)}>
+        <Text
+          style={
+            active === Sections.Experiences ? styles.activeText : styles.text
+          }
+        >
           Experiences
         </Text>
       </TouchableOpacity>
