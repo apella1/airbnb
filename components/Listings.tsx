@@ -1,27 +1,31 @@
 import { defaultStyles } from "@/constants/Styles";
+import { AirbnbListing } from "@/types/listing";
+import { Ionicons } from "@expo/vector-icons";
+import {
+  BottomSheetFlatList,
+  BottomSheetFlatListMethods,
+} from "@gorhom/bottom-sheet";
 import { Link } from "expo-router";
 import React, { useEffect, useRef, useState } from "react";
 import {
-  FlatList,
   Image,
   ListRenderItem,
   StyleSheet,
   Text,
   TouchableOpacity,
-  View,
+  View
 } from "react-native";
-import { AirbnbListing } from "@/types/listing";
-import { Ionicons } from "@expo/vector-icons";
 import Animated, { FadeInRight, FadeOutLeft } from "react-native-reanimated";
 
 interface ListingProps {
   listings: any[];
   category: string;
+  refresh: number;
 }
 
-const Listings = ({ listings, category }: ListingProps) => {
+const Listings = ({ listings, category, refresh }: ListingProps) => {
   const [loading, setLoading] = useState(false);
-  const listRef = useRef<FlatList | null>(null);
+  const listRef = useRef<BottomSheetFlatListMethods | null>(null);
 
   useEffect(() => {
     setLoading(true);
@@ -30,6 +34,12 @@ const Listings = ({ listings, category }: ListingProps) => {
       setLoading(false);
     }, 200);
   }, [category]);
+
+  useEffect(() => {
+    if (refresh) {
+      listRef.current?.scrollToOffset({ offset: 0, animated: true });
+    }
+  }, [refresh]);
 
   const renderRow: ListRenderItem<AirbnbListing> = ({ item }) => (
     <Link href={`/listing/${item.id}`} asChild>
@@ -76,10 +86,22 @@ const Listings = ({ listings, category }: ListingProps) => {
 
   return (
     <View style={defaultStyles.container}>
-      <FlatList
+      <BottomSheetFlatList
         data={loading ? [] : listings}
         ref={listRef}
         renderItem={renderRow}
+        ListHeaderComponent={
+          <Text
+            style={{
+              textAlign: "center",
+              fontFamily: "mon-s",
+              fontSize: 16,
+              marginTop: 4,
+            }}
+          >
+            {listings.length} Homes
+          </Text>
+        }
       />
     </View>
   );

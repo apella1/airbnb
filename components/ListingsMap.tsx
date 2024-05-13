@@ -59,7 +59,7 @@ const ListingsMap = ({ listings }: ListingsMapProps) => {
         showsUserLocation
         showsMyLocationButton
         provider={PROVIDER_GOOGLE}
-        // initialRegion={INITIAL_REGION}
+        initialRegion={INITIAL_REGION}
         clusterFontFamily={"mon-s"}
         clusterColor={Colors.white}
         clusterTextColor={Colors.dark}
