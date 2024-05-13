@@ -1,3 +1,5 @@
+import BookingModalHeaderText from "@/components/BookingModalHeaderText";
+import Colors from "@/constants/Colors";
 import { Ionicons } from "@expo/vector-icons";
 import { useFonts } from "expo-font";
 import { Stack, useRouter } from "expo-router";
@@ -106,13 +108,24 @@ function RootLayoutNav() {
           name="(modals)/booking"
           options={{
             presentation: "transparentModal",
+            headerTransparent: true,
             title: "Booking",
             animation: "fade",
+            headerTitle: () => <BookingModalHeaderText />,
             headerTitleStyle: {
               fontFamily: "mon-s",
             },
             headerLeft: () => (
-              <TouchableOpacity onPress={() => router.back()}>
+              <TouchableOpacity
+                onPress={() => router.back()}
+                style={{
+                  backgroundColor: Colors.white,
+                  borderColor: Colors.grey,
+                  borderRadius: 20,
+                  borderWidth: 1,
+                  padding: 4,
+                }}
+              >
                 <Ionicons name="close-outline" size={24} />
               </TouchableOpacity>
             ),
