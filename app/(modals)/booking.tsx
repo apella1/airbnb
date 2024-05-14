@@ -39,6 +39,7 @@ const Booking = () => {
   const onClearAll = () => {
     setSelectedPlace(0);
     setOpenCard(0);
+    setGroups(guestGroups);
   };
   const today = new Date().toISOString().substring(0, 10);
   const [groups, setGroups] = useState(guestGroups);
