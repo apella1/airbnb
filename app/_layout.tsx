@@ -124,6 +124,7 @@ function RootLayoutNav() {
                   borderRadius: 20,
                   borderWidth: 1,
                   padding: 4,
+                  marginRight: 14,
                 }}
               >
                 <Ionicons name="close-outline" size={24} />
